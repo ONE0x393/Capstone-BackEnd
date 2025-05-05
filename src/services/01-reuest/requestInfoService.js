@@ -12,7 +12,7 @@ exports.createRequestInfo = async (fileData, data) => {
     if(user_credit>0){
         //credit -1 수정 후 작업
         await UserInfoService.updateUser({
-            user_idx: 1,
+            user_idx: data.user_idx,
             user_credit: user_credit-1
         });
 
