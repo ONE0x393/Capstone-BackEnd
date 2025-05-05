@@ -72,7 +72,7 @@ exports.updateRequestComment = async (req, res) => {
         in: 'body',
         required: true,
         schema: {
-            "interest_idx": 1,
+            "comment_idx": 1,
             "user_idx": 1,
             "request_idx": 1,
             "comment": "수정할 내용을 넣어주세요."
