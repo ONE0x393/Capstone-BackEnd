@@ -34,20 +34,23 @@ exports.getAllRequestComments = async () => {
     //return await RequestComment.findAll();
 }
 
-exports.getRequestCommentsByIDX = async (comment_idx) => {
+exports.getRequestCommentsByIDX = async (request_idx) => {
     const { body } = await esClient.search({
         index: 'request_comment',
+        _source: ['comment_idx', 'user_idx', 'comment', 'updated_date'], // 반환할 필드 지정
         body: {
             query: {
-                term: {
-                    comment_idx: comment_idx
+                bool: {
+                    must: [
+                        { term: { request_idx: request_idx } },
+                        { term: { is_deleted: false } }
+                    ]
                 }
             }
         }
     });
 
     return body.hits.hits.map(hit => hit._source);
-    //return await RequestComment.findAll();
 }
 
 exports.updateRequestComment = async (data) => {
@@ -84,7 +87,7 @@ exports.deleteRequestComment = async (comment_idx) => {
     });
 
     // 데이터베이스에서 RequestComment 데이터 삭제
-    await InterestRequest.destroy({
+    await RequestComment.destroy({
         where: { comment_idx: comment_idx }
     });
 

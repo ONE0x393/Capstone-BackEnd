@@ -49,13 +49,13 @@ exports.getRequestCommentsByIDX = async (req, res) => {
         in: 'body',
         required: true,
         schema: {
-            "comment_idx": 1
+            "request_idx": 1
         }
     }
     */
     try{
         logger.info(`${requestIp.getClientIp(req)} POST /api/RequestComment`);
-        const RequestComment = await RequestCommentService.getRequestCommentsByIDX(req.body.comment_idx);
+        const RequestComment = await RequestCommentService.getRequestCommentsByIDX(req.body.request_idx);
         res.json(RequestComment);
     } catch (e){
         logger.error(`${requestIp.getClientIp(req)} POST /api/RequestComment 500 ERROR: ${e.message}`);
