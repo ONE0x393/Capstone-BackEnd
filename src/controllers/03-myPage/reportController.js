@@ -18,11 +18,11 @@ exports.checkReportAlreadyByUser = async (req, res) => {
     }
     */
     try{
-        logger.info(`${requestIp.getClientIp(req)} PUT /api/report/reportProcess`);
+        logger.info(`${requestIp.getClientIp(req)} PUT /api/report/create`);
         const resData = await reportService.checkReportAlreadyByUser(req.body);
         res.json(resData);
     } catch (e){
-        logger.error(`${requestIp.getClientIp(req)} PUT /api/report/reportProcess 500 ERROR: ${e.message}`);
+        logger.error(`${requestIp.getClientIp(req)} PUT /api/report/create 500 ERROR: ${e.message}`);
         res.status(500).json({message: e.message});
     }
 }
