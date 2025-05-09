@@ -8,7 +8,7 @@ exports.createUser = async (userData) => {
 exports.getAllUsers = async () => {
     return await UserInfo.findAll(
         {attributes: {
-                exclude: ['user_pw', 'user_img'] // user_id와 user_img를 제외
+                exclude: ['user_pw'] // user_pw를 제외
             }}
     );
 }
@@ -49,6 +49,7 @@ exports.updateUser = async (userData) => {
         user_like: userData.user_like,
         user_dislike: userData.user_dislike,
         is_agree_privacy: userData.is_agree_privacy,
+        is_available: userData.is_available,
     }, {
         where: {
             user_idx: userData.user_idx
