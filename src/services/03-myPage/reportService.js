@@ -42,7 +42,6 @@ exports.getAllReportsHistory = async () => {
             ON r.reported_request_idx = req.request_idx
     `;
     const results = await sequelize.query(query, { type: sequelize.QueryTypes.SELECT });
-    console.log(results);  // 결과가 배열로 반환되는지 확인
     return results;
 }
 
