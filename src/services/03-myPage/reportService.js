@@ -40,6 +40,8 @@ exports.getAllReportsHistory = async () => {
                 JOIN
             TB_REQUEST_INFO req
             ON r.reported_request_idx = req.request_idx
+        ORDER BY
+            r.created_time DESC
     `;
     const results = await sequelize.query(query, { type: sequelize.QueryTypes.SELECT });
     return results;
