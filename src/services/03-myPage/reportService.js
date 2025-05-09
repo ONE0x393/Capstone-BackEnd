@@ -17,6 +17,19 @@ exports.getReportsByUser = async (user_idx) => {
     });
 }
 
+exports.getAllReportsHistory = async () => {
+    return await Report.findAll({
+        attributes: [
+            'report_user_idx',
+            'reported_request_idx',
+            'reported_user_idx',
+            'report_type',
+            'is_complete',
+            'created_time'
+        ]
+    });
+}
+
 exports.checkReportAlreadyByUser = async (data) => {
     const reports = await Report.findAll({
         where: {
