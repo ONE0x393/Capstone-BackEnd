@@ -25,8 +25,7 @@ const Report = sequelize.define('TB_REPORT', {
     },
     is_complete: { //신고처리 여부
         type: DataTypes.BOOLEAN,
-        allowNull: false,
-        defaultValue: false
+        defaultValue:0
     },
     created_time: { //신고시간
         type: DataTypes.DATE,
