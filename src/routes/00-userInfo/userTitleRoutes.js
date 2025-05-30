@@ -4,15 +4,15 @@ const userTitleController = require('../../controllers/00-userInfo/userTitleCont
 const router = express.Router();
 
 /**
- * 새로운 사용자 관계 생성
+ * 새로운 레벨 및 칭호 추가
  */
 router.put('/', userTitleController.createUserTitle);
 /**
- * 사용자 관계 조회
+ * 사용자 레벨에 따른 칭호 조회
  */
 router.post('/', userTitleController.getUserTitles);
 /**
- * 사용자 관계 삭제
+ * 사용자 칭호 삭제
  */
 router.post('/update', userTitleController.updateUserTitle);
 

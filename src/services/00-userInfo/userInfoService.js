@@ -94,8 +94,14 @@ exports.updateUser = async (userData) => {
         }
 
         while (newExp >= newLevel * 3) { //경험치 통을 초과하는 경우
-            newExp -= newLevel * 3; //레벨업 하고 남은 exp를 저장
-            newLevel += 1; //레벨업
+            if(newLevel == 10){ //최대레벨의 경우 경험치를 최대로 유지
+                newExp = newLevel*3;
+                break;
+            }
+            else{
+                newExp -= newLevel * 3; //레벨업 하고 남은 exp를 저장
+                newLevel += 1; //레벨업
+            }
         }
 
         // 반드시 updateData에 exp와 level 추가
