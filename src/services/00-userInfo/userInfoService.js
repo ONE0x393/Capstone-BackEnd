@@ -44,7 +44,7 @@ exports.getUser = async (user_idx) => {
     });
 
     if (!result || result.length === 0) {
-        return null;
+        return {};
     }
 
     return result[0];
