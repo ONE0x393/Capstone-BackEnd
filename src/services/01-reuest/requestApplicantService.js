@@ -216,14 +216,13 @@ exports.updateRequestApplicant = async (data) => {
     });
 }
 
-exports.updateRequestAllApplicantForReject = async (request_idx, applicant_state) => {
-
+exports.updateRequestAllApplicantForReject = async (data) => {
     return await RequestApplicant.update({
-        applicant_state: applicant_state,
+        applicant_state: "반려", //모두 반려처리
     }, {
         where: {
-            request_idx: request_idx, //특정 의뢰에 지원한 사람들 중
-            applicant_state: "대기", //상태가 대기중인 지원자들에 한하여
+            request_idx: data.request_idx,
+            user_idx: { [Op.ne]: data.user_idx } // 특정 user를 제외하고
         }
     });
 }
