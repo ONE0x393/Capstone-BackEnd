@@ -1,7 +1,7 @@
 const RequestApplicant = require('../../models/01-request/RequestApplicant');
 const sequelize = require('../../config/database');
 const { Op } = require('sequelize');
-const RequestInfo = require('../../models/01-request/RequestInfo');
+const RequestInfoService = require('../../services/01-reuest/requestInfoService');
 
 exports.createRequestApplicant = async (data) => {
     const existingApplicant = await RequestApplicant.findOne({
@@ -217,12 +217,19 @@ exports.updateRequestApplicant = async (data) => {
 }
 
 exports.updateRequestAllApplicantForReject = async (data) => {
+    const requestInfos = await RequestInfoService.getRequestInfoByIdx(data.request_idx);
+
+    if (!requestInfos || requestInfos.length === 0) {
+        throw new Error('의뢰 정보를 찾을 수 없습니다');
+    }
+    const applicantIdx = requestInfos[0].applicant_idx;//applicant_idx 추출
+
     return await RequestApplicant.update({
-        applicant_state: "반려", //모두 반려처리
+        applicant_state: "취소", //모두 취소처리
     }, {
         where: {
             request_idx: data.request_idx,
-            user_idx: { [Op.ne]: data.user_idx } // 특정 user를 제외하고
+            user_idx: { [Op.ne]: applicantIdx } // request의 appliant_idx(확정자)를 제외하고
         }
     });
 }
